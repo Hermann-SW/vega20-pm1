@@ -1,7 +1,7 @@
 # vega20-pm1
 IBDWT p-1 proof for primes on high FP64 performance AMD GPUs like Instinct MI50/Radeon Pro VII/Radeon VII with 6.7/6.5/3.5 TFLOPS FP64. Developed in very long chat with free gemini.google.com (>10h). Work in progress ...
 
-Developed first with primorial primes (p#+1) in mind, p-1 proof works for all numbers p with known factorization of p-1. This includes big Carmichael numbers created from big smooth numbers and Proth numbers $p=k\cdot 2^n+1$ with odd $k < 2^n$.
+Developed first with primorial primes (p#+1) in mind (like 5,862 decimal digits primorial prime 13649#+1), p-1 proof works for all numbers p with known factorization of p-1. This includes big Carmichael numbers created from big smooth numbers and Proth numbers $p=k\cdot 2^n+1$ with odd $k < 2^n$.
 
 ## Initial design decision by this Gemini reasoning:   
 At $\approx 1,880,000$ <b>decimal digits</b> ($\approx 6.24$ million bits), standard integer-limb Montgomery multiplication algorithms (like CIOS or warp-shuffle BigInts) become completely unviable ($O(N^2)$ complexity would require over $10^{13}$ operations per modular multiplication).  
