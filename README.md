@@ -2,8 +2,10 @@
 IBDWT p-1 proof for primes on high FP64 performance AMD GPUs like Instinct MI50/Radeon Pro VII/Radeon VII with 6.7/6.5/3.5 TFLOPS FP64. Developed in very long chat with free gemini.google.com (>10h). Work in progress ...
 
 
-CPU verification part runs long at 796% CPU on 4C/8T Intel Xeon W-2225 CPU:  
+CPU side verification part runs long at 796% CPU on 4C/8T Intel Xeon W-2225 CPU:  
 ```
+hermann@Radeon-pro-vii:~/vega20-pm1$ f=ibdwt_2d_verification_harness
+hermann@Radeon-pro-vii:~/vega20-pm1$ hipcc -O3 -std=c++20 --offload-arch=gfx906 -ffp-contract=fast -fopenmp $f.cpp -o $f
 hermann@Radeon-pro-vii:~/vega20-pm1$ /usr/bin/time ./ibdwt_2d_verification_harness 
 =======================================================
 --- Item 1 Test: Impulse Response Vector ---
