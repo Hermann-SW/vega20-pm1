@@ -11,6 +11,18 @@ At this scale, **Double-Precision Floating-Point Discrete Fourier Transform (FP6
 The AMD Instinct MI50 (6.7 TFLOPS FP64, 1,024 GB/s HBM2) is an ideal architecture for this task because FP64 FFT arithmetic is strictly
 **compute-bound on FP64 execution units and memory-bandwidth bound on transform roundtrips**.
 
+## The Optimal Strategy: Batch Processing
+[Gemini response on utilizing 8 Instinct MI50 GPUs conneted to one workstation, powered by 2000W+1850W PSUs]
+
+Instead of running **1 candidate across 8 GPUs**, run **8 independent candidates simultaneously** (one on each GPU).
+
+| Setup | Execution Strategy | Single Test Time | Total Throughput |
+| --- | --- | --- | --- |
+| **1x MI50** | 1 candidate sequentially | ~30 minutes | 1 candidate / 30 min |
+| **8x MI50 (Distributed Single Test)** | 1 candidate split over 8 GPUs | ~25–30 minutes (PCIe x1 bottleneck) | ~1 candidate / 28 min |
+| **8x MI50 (Batched Independent Tests)** | **8 candidates in parallel** | **~30 minutes** | **8 candidates / 30 min** |
+
+This yields a **true linear $8\times$ speedup in candidate search speed**: you evaluate **16 candidate primes per hour** instead of 2.
 
 ## sample run of ibdwt_2d_verification_harness
 
