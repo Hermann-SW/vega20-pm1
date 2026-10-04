@@ -4,7 +4,7 @@ IBDWT p-1 proof for primes on high FP64 performance AMD GPUs like Instinct MI50/
 Developed first with primorial primes (p#+1) in mind, p-1 proof works for all numbers p with known factorization of p-1. This includes big Carmichael numbers created from big smooth numbers and Proth numbers p=k\*2^n+1 with $k\leq n$.
 
 CPU side verification part runs long at 796% CPU on 4C/8T Intel Xeon W-2225 CPU.
-Only he first two pimorial prime testcases fit into current 524288 element restriction:  
+Only the first two pimorial prime testcases fit into current 524288 element restriction:  
 ```
 hermann@Radeon-pro-vii:~/vega20-pm1$ f=ibdwt_2d_verification_harness
 hermann@Radeon-pro-vii:~/vega20-pm1$ hipcc -O3 -std=c++20 --offload-arch=gfx906 -ffp-contract=fast -fopenmp $f.cpp -o $f
