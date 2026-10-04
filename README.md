@@ -3,6 +3,16 @@ IBDWT p-1 proof for primes on high FP64 performance AMD GPUs like Instinct MI50/
 
 Developed first with primorial primes (p#+1) in mind, p-1 proof works for all numbers p with known factorization of p-1. This includes big Carmichael numbers created from big smooth numbers and Proth numbers p=k\*2^n+1 with $k\leq n$.
 
+Initial design decision by this Gemini reasoning:  
+<HR>
+At $\approx 1,880,000$ <b>decimal digits</b> ($\approx 6.24$ million bits), standard integer-limb Montgomery multiplication algorithms (like CIOS or warp-shuffle BigInts) become completely unviable ($O(N^2)$ complexity would require over $10^{13}$ operations per modular multiplication).  
+
+At this scale, <b>Double-Precision Floating-Point Discrete Fourier Transform (FP64 FFT)</b> modular multiplication—specifically the <b>Irrational Base Discrete Weighted Transform (IBDWT)</b>—is the <i>only</i> algorithmically feasible approach.  
+
+The AMD Instinct MI50 (6.7 TFLOPS FP64, 1,024 GB/s HBM2) is an ideal architecture for this task because FP64 FFT arithmetic is strictly <b>compute-bound on FP64 execution units and memory-bandwidth bound on transform roundtrips</b>.
+<HR>
+
+
 CPU side verification part runs long at 796% CPU on 4C/8T Intel Xeon W-2225 CPU.
 Only the first two pimorial prime testcases fit into current 524288 element restriction:  
 ```
